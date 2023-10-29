@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "@fontsource/varela-round";
+@import "./theme.scss";
+
+body {
+  background-color: black;
+  margin: 0;
+  font-family: "Varela Round";
+  color: white;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+div {
+  box-sizing: border-box;
+}
