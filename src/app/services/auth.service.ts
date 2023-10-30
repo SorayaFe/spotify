@@ -11,13 +11,13 @@ export class AuthService {
   private token: string | null = null;
 
   getToken(): string | null {
-    this.token = localStorage.getItem('token');
+    this.token = localStorage.getItem('sf-token');
 
     return this.token;
   }
 
   authenticate(code: string | null): Observable<string | null> {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('sf-token');
 
     if (token) {
       this.token = token;
@@ -80,7 +80,47 @@ export class AuthService {
           return response.json();
         })
         .then((data) => {
-          localStorage.setItem('token', data.access_token);
+          localStorage.setItem('sf-token', data.access_token);
+          localStorage.setItem('sf-refresh-token', data.refresh_token);
+          this.token = data.access_token;
+
+          observer.next(data.access_token);
+          observer.complete();
+        })
+        .catch((err) => {
+          console.error('Error:', err);
+          observer.error(err);
+        });
+    });
+  }
+
+  refreshToken(): Observable<string> {
+    const refreshToken = localStorage.getItem('sf-refresh-token') ?? '';
+
+    const body = new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+      client_id: '18429e18c3a4478983abb3db36bcf590',
+    });
+
+    return new Observable((observer) => {
+      fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: body,
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('HTTP status ' + response.status);
+          }
+
+          return response.json();
+        })
+        .then((data) => {
+          localStorage.setItem('sf-token', data.access_token);
+          localStorage.setItem('sf-refresh-token', data.refresh_token);
           this.token = data.access_token;
 
           observer.next(data.access_token);

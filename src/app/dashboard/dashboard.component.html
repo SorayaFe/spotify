@@ -1,1 +1,17 @@
-<p>dashboard works!</p>
+<mat-form-field>
+  <mat-label>Zeitraum</mat-label>
+  <mat-select [formControl]="range">
+    <mat-option [value]="'short_term'">Letzte 4 Wochen</mat-option>
+    <mat-option [value]="'medium_term'">Letzte 6 Monate</mat-option>
+    <mat-option [value]="'long_term'">Letzte Jahre</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<h1>Deine Top 10 Tracks der letzten {{ range.value | timeRangeMonths }}:</h1>
+
+<div class="track" *ngFor="let track of tracks; index as i">
+  <h2>
+    <a [href]="track.uri" target="_blank">{{ i + 1 }}. {{ track.name }}</a>
+    <span> - {{ track.artists | artistsNames }}</span>
+  </h2>
+</div>

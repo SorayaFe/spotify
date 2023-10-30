@@ -36,7 +36,9 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.error.error.status === 401) {
-          localStorage.removeItem('token');
+          this.authService.refreshToken().subscribe(() => {
+            window.location.reload();
+          });
         }
 
         return of();

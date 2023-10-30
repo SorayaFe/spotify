@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { FindTop } from '../models/find-top';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,17 @@ export class SpotifyService {
     return this.http.get<any>(`${SpotifyService.BASE_URL}/me`);
   }
 
-  findTop(): Observable<any> {
-    return this.http.get<any>(`${SpotifyService.BASE_URL}/me/top/tracks`);
+  findTop(dto: FindTop): Observable<any> {
+    let params = new HttpParams();
+
+    for (const [key, value] of Object.entries(dto)) {
+      if (value && key !== 'type') {
+        params = params.append(key, value);
+      }
+    }
+
+    return this.http.get<any>(`${SpotifyService.BASE_URL}/me/top/${dto.type}`, {
+      params,
+    });
   }
 }

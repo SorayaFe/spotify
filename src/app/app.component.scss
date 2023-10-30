@@ -10,25 +10,32 @@
   transition: margin-left 0.5s ease-in-out;
   height: 100vh;
   width: 100%;
+  z-index: 1000;
 
   &.open {
     margin-left: 0;
   }
 
   .menu-items {
-    padding: 32px 16px;
+    padding: 32px 0px;
     background-color: var(--color-accent);
     height: 100%;
     width: fit-content;
+    max-width: 90vw;
 
     .menu-item {
       cursor: pointer;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       gap: 10px;
       text-decoration: none;
-      margin-bottom: 16px;
+      padding: 16px;
       color: white;
+
+      &.active {
+        background-color: var(--color-primary);
+      }
     }
   }
 }

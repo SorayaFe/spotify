@@ -8,13 +8,26 @@
   <div class="menu-items">
     <a
       routerLink="/dashboard"
+      routerLinkActive="active"
       (click)="toggleMenu(); $event.stopPropagation()"
       class="menu-item"
     >
       <mat-icon>home</mat-icon>
       <span>Dashboard</span>
     </a>
+
+    <a
+      routerLink="/artists"
+      routerLinkActive="active"
+      (click)="toggleMenu(); $event.stopPropagation()"
+      class="menu-item"
+    >
+      <mat-icon>person</mat-icon>
+      <span>Künstler</span>
+    </a>
   </div>
 </div>
 
-<router-outlet></router-outlet>
+<div class="content-container">
+  <router-outlet></router-outlet>
+</div>

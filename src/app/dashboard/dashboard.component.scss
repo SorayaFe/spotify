@@ -1,0 +1,14 @@
+.track {
+  color: var(--color-primary);
+  margin-bottom: 32px;
+
+  a {
+    color: inherit;
+  }
+
+  span {
+    font-weight: normal;
+    font-size: 0.75em;
+    color: white;
+  }
+}

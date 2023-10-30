@@ -16,6 +16,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
+  {
+    path: 'artists',
+    loadChildren: () =>
+      import('./artists/artists.module').then((m) => m.ArtistsModule),
+  },
 ];
 
 @NgModule({
